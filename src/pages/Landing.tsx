@@ -10,7 +10,7 @@ export default function Landing() {
       <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="p-1 bg-blue-100 rounded-lg">
-            <img src={heroImg} alt="UPS Monitoring" className="h-7 w-7 rounded" />
+            <img src="/power-favicon.svg" alt="UPS Monitoring" className="h-7 w-7 rounded" />
           </div>
           <span className="text-xl font-bold text-gray-900">UPS-MONITORING</span>
         </div>
