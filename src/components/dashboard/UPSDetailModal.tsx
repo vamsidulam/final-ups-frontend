@@ -107,7 +107,10 @@ export function UPSDetailModal({ ups, isOpen, onClose }: UPSDetailModalProps) {
             <div>
               <DialogTitle className="text-2xl font-bold">{displayData?.upsId}</DialogTitle>
               <p className="text-sm text-muted-foreground">
-                Data updates every 5 minutes • Last updated: {displayData?.lastChecked ? formatTimestamp(displayData.lastChecked) : 'Unknown'}
+                Data updates every 1 minute • Last updated: {(() => {
+                  const ts = (displayData as any)?.lastUpdate || (displayData as any)?.lastUpdated || (displayData as any)?.lastChecked;
+                  return ts ? formatTimestamp(ts as any) : 'Unknown';
+                })()}
               </p>
             </div>
             {detailLoading && (
