@@ -89,19 +89,19 @@ export function OverviewCards({ stats }: OverviewCardsProps) {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
       {cards.map((card) => (
         <div 
           key={card.title} 
-          className={`metric-card ${card.className}`}
+          className={`metric-card ${card.className} p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-200`}
           onClick={() => handleCardClick(card.title)}
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">{card.title}</p>
-              <p className="text-3xl font-bold text-foreground mt-2">{card.value}</p>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground truncate">{card.title}</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mt-1 sm:mt-2">{card.value}</p>
             </div>
-            <card.icon className={`h-8 w-8 ${card.iconClassName}`} />
+            <card.icon className={`h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 ${card.iconClassName} flex-shrink-0`} />
           </div>
         </div>
       ))}
