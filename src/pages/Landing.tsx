@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Shield, Activity, Zap, TrendingUp, Cpu, LineChart, Bell, Lock } from "lucide-react";
-import heroImg from "@/assets/ups-dashboard-hero.jpg";
 
 export default function Landing() {
   return (
@@ -51,7 +50,7 @@ export default function Landing() {
           <div className="relative">
             <div className="rounded-2xl border bg-white/70 backdrop-blur shadow-2xl p-4">
               <div className="aspect-video w-full rounded-lg bg-slate-50 border flex items-center justify-center overflow-hidden">
-                <img src={heroImg} alt="UPS Monitoring preview" className="h-full w-full object-cover" />
+                <img src="/power-favicon.svg" alt="UPS Monitoring preview" className="h-24 w-24" />
               </div>
               <div className="mt-4 rounded-lg bg-blue-50/70 border p-3 text-slate-700 text-sm">
                 <strong className="text-blue-700">Tip:</strong> Sign in to access the live dashboard and real‑time data.
