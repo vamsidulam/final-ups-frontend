@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Shield, Activity, Zap, TrendingUp, Cpu, LineChart, Bell, Lock } from "lucide-react";
+import heroImg from "@/assets/ups-dashboard-hero.jpg";
 
 export default function Landing() {
   return (
@@ -8,10 +9,10 @@ export default function Landing() {
       {/* Top Nav */}
       <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <Shield className="h-6 w-6 text-blue-600" />
+          <div className="p-1 bg-blue-100 rounded-lg">
+            <img src={heroImg} alt="UPS Monitoring" className="h-7 w-7 rounded" />
           </div>
-          <span className="text-xl font-bold text-gray-900">PowerWatch</span>
+          <span className="text-xl font-bold text-gray-900">UPS-MONITORING</span>
         </div>
         <div className="flex items-center gap-3">
           <Link to="/sign-in"><Button variant="outline">Sign in</Button></Link>
@@ -49,8 +50,8 @@ export default function Landing() {
           {/* Product preview card */}
           <div className="relative">
             <div className="rounded-2xl border bg-white/70 backdrop-blur shadow-2xl p-4">
-              <div className="aspect-video w-full rounded-lg bg-slate-50 border flex items-center justify-center">
-                <img src="/placeholder.svg" alt="Product preview" className="h-24 w-24 opacity-60" />
+              <div className="aspect-video w-full rounded-lg bg-slate-50 border flex items-center justify-center overflow-hidden">
+                <img src={heroImg} alt="UPS Monitoring preview" className="h-full w-full object-cover" />
               </div>
               <div className="mt-4 rounded-lg bg-blue-50/70 border p-3 text-slate-700 text-sm">
                 <strong className="text-blue-700">Tip:</strong> Sign in to access the live dashboard and real‑time data.
@@ -86,7 +87,7 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="max-w-7xl mx-auto px-6 py-8 text-sm text-slate-500">
-        © {new Date().getFullYear()} PowerWatch. All rights reserved.
+        © {new Date().getFullYear()} UPS-MONITORING. All rights reserved.
       </footer>
     </div>
   );
