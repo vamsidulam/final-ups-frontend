@@ -16,9 +16,7 @@ import {
 const navigationItems = [
   { title: 'Dashboard', url: '/dashboard', icon: LayoutDashboard },
   { title: 'UPS List', url: '/ups-list', icon: List },
-  { title: 'Reports', url: '/reports', icon: FileText },
   { title: 'Alerts', url: '/alerts', icon: AlertTriangle },
-  { title: 'Settings', url: '/settings', icon: Settings },
 ];
 
 export function DashboardSidebar() {
