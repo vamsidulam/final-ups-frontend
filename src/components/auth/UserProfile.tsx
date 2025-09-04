@@ -1,4 +1,3 @@
-import { useUser, useClerk } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -10,15 +9,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOut, User, Settings, Shield } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function UserProfile() {
-  const { user } = useUser();
-  const { signOut } = useClerk();
+  const { user, logout } = useAuth();
 
   if (!user) return null;
 
   const handleSignOut = () => {
-    signOut();
+    logout();
   };
 
   return (
@@ -26,9 +25,9 @@ export default function UserProfile() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={user.imageUrl} alt={user.fullName || "User"} />
+            <AvatarImage src="" alt={user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : "User"} />
             <AvatarFallback className="bg-blue-100 text-blue-600 font-semibold">
-              {user.firstName?.charAt(0) || user.emailAddresses[0]?.emailAddress.charAt(0) || "U"}
+              {user.first_name?.charAt(0) || user.email.charAt(0) || "U"}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -37,10 +36,10 @@ export default function UserProfile() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {user.fullName || "User"}
+              {user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : "User"}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user.primaryEmailAddress?.emailAddress}
+              {user.email}
             </p>
           </div>
         </DropdownMenuLabel>

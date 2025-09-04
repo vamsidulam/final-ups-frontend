@@ -39,6 +39,7 @@ export function AlertBanner({ className = '' }: AlertBannerProps) {
     };
   }, []);
 
+  console.log('WS URL:', import.meta.env.VITE_WS_URL);
   const connectWebSocket = () => {
     try {
       const wsUrl = (import.meta as any)?.env?.VITE_WS_URL;

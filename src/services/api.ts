@@ -10,13 +10,49 @@ if (!envBaseUrl) {
 }
 export const API_BASE_URL = envBaseUrl;
 
+// Authentication types
+export interface User {
+  id: string;
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UserCreate {
+  email: string;
+  password: string;
+  first_name?: string;
+  last_name?: string;
+}
+
+export interface UserLogin {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  access_token: string;
+  token_type: string;
+}
+
 // Generic API call function
 async function apiCall<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
+  
+  // Get token from localStorage for authenticated requests
+  const token = localStorage.getItem('access_token');
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  
   const response = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     ...options,
   });
 
@@ -26,6 +62,59 @@ async function apiCall<T>(endpoint: string, options?: RequestInit): Promise<T> {
 
   return response.json();
 }
+
+// Authentication API
+export const authAPI = {
+  signup: async (userData: UserCreate): Promise<User> => {
+    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Signup failed');
+    }
+
+    return response.json();
+  },
+
+  signin: async (credentials: UserLogin): Promise<AuthResponse> => {
+    const response = await fetch(`${API_BASE_URL}/auth/signin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Signin failed');
+    }
+
+    return response.json();
+  },
+
+  getCurrentUser: async (): Promise<User> => 
+    apiCall<User>('/auth/me'),
+
+  logout: () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
+  },
+
+  isAuthenticated: (): boolean => {
+    return !!localStorage.getItem('access_token');
+  },
+
+  getToken: (): string | null => {
+    return localStorage.getItem('access_token');
+  },
+};
 
 // Dashboard API
 export const dashboardAPI = {

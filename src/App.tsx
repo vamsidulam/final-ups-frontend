@@ -3,7 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ClerkProvider } from "@clerk/clerk-react";
 import Dashboard from "./pages/Dashboard";
 import UPSList from "./pages/UPSList";
 import Reports from "./pages/Reports";
@@ -15,17 +14,13 @@ import SignUpPage from "./components/auth/SignUp";
 import { DashboardLayout } from "./components/layouts/DashboardLayout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
-const clerkPublishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-if (!clerkPublishableKey) {
-  throw new Error("Missing Publishable Key");
-}
-
 const App = () => (
-  <ClerkProvider publishableKey={clerkPublishableKey} signInUrl="/sign-in" signUpUrl="/sign-up" afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
-    <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -80,8 +75,8 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
-    </QueryClientProvider>
-  </ClerkProvider>
+    </AuthProvider>
+  </QueryClientProvider>
 );
 
 export default App;
