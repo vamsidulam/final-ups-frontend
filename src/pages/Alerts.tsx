@@ -139,35 +139,34 @@ export default function Alerts() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-3 sm:p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+        {/* Header - Mobile Responsive */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-0">
+            <div className="flex-1">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
                 🔮 Alerts
               </h1>
-              <p className="text-muted-foreground mt-2 text-lg">
+              <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base md:text-lg">
                 ML-powered failure predictions with detailed analysis and recommendations
               </p>
-              {/* Update Cycle Information */}
-              <div className="mt-3 space-y-2">
+              {/* Update Cycle Information - Mobile Responsive */}
+              <div className="mt-2 sm:mt-3 space-y-2">
                 {/* ML Predictions Cycle */}
-                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="p-2 sm:p-3 bg-blue-50 border border-blue-200 rounded-lg">
                   <div className="flex items-center gap-2 text-blue-700">
-                    <Clock className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      Predictions: Every 15 minutes • Next update: {getNextPredictionTime()}
+                    <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm font-medium">
+                      Predictions: Every 15 min • Next: {getNextPredictionTime()}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-blue-600 mt-1">
-                    <Activity className="h-3 w-3" />
+                    <Activity className="h-2 w-2 sm:h-3 sm:w-3 flex-shrink-0" />
                     <span className="text-xs">
-                      Last updated: {lastUpdateTime.toLocaleTimeString('en-US', { 
+                      Last: {lastUpdateTime.toLocaleTimeString('en-US', { 
                         hour: '2-digit', 
                         minute: '2-digit',
-                        second: '2-digit',
                         hour12: true 
                       })}
                     </span>
@@ -175,20 +174,19 @@ export default function Alerts() {
                 </div>
                 
                 {/* UPS Data Cycle */}
-                <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                <div className="p-2 sm:p-3 bg-green-50 border border-green-200 rounded-lg">
                   <div className="flex items-center gap-2 text-green-700">
-                    <RefreshCw className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      UPS Data: Every 5 minutes • Next update: {getNextUPSUpdateTime()}
+                    <RefreshCw className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm font-medium">
+                      UPS Data: Every 5 min • Next: {getNextUPSUpdateTime()}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-green-600 mt-1">
-                    <Activity className="h-3 w-3" />
+                    <Activity className="h-2 w-2 sm:h-3 sm:w-3 flex-shrink-0" />
                     <span className="text-xs">
-                      Last updated: {lastUPSUpdateTime.toLocaleTimeString('en-US', { 
+                      Last: {lastUPSUpdateTime.toLocaleTimeString('en-US', { 
                         hour: '2-digit', 
                         minute: '2-digit',
-                        second: '2-digit',
                         hour12: true 
                       })}
                     </span>
@@ -196,17 +194,18 @@ export default function Alerts() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              {/* Manual Refresh Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4">
+              {/* Manual Refresh Buttons - Mobile Responsive */}
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleManualUPSRefresh}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
                 >
-                  <RefreshCw className="h-4 w-4" />
-                  Refresh UPS
+                  <RefreshCw className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">Refresh UPS</span>
+                  <span className="sm:hidden">UPS</span>
                 </Button>
                 
                 <Button
@@ -229,16 +228,17 @@ export default function Alerts() {
                     };
                     fetchPredictions();
                   }}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
                 >
-                  <Activity className="h-4 w-4" />
-                  Refresh ML
+                  <Activity className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">Refresh ML</span>
+                  <span className="sm:hidden">ML</span>
                 </Button>
               </div>
               
-              <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm">
-                <Eye className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-medium text-gray-700">
+              <div className="flex items-center space-x-2 bg-white px-3 sm:px-4 py-2 rounded-lg shadow-sm">
+                <Eye className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
+                <span className="text-xs sm:text-sm font-medium text-gray-700">
                  Predictions
                 </span>
               </div>
@@ -246,38 +246,34 @@ export default function Alerts() {
           </div>
         </div>
 
-        {/* Status Change Indicator */}
+        {/* Status Change Indicator - Mobile Responsive */}
         {upsLoading && (
-          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-blue-50 border border-blue-200 rounded-lg">
             <div className="flex items-center gap-2 text-blue-700">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-              <span className="font-medium">Updating UPS statuses...</span>
+              <div className="animate-spin rounded-full h-3 w-3 sm:h-4 sm:w-4 border-b-2 border-blue-600"></div>
+              <span className="font-medium text-sm sm:text-base">Updating UPS statuses...</span>
             </div>
           </div>
         )}
 
-        {/* UPS Status Summary removed per request */}
-
-        {/* Filter Controls */}
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          <span className="text-sm text-gray-600 mr-2">Filter:</span>
-          <Button variant={riskFilter === 'high' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('high')}>Critical</Button>
-          <Button variant={riskFilter === 'medium' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('medium')}>Warning</Button>
-          <Button variant={riskFilter === 'low' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('low')}>Info</Button>
-          <Button variant={riskFilter === 'all' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('all')}>All</Button>
+        {/* Filter Controls - Mobile Responsive */}
+        <div className="mb-3 sm:mb-4 flex flex-wrap items-center gap-1 sm:gap-2">
+          <span className="text-xs sm:text-sm text-gray-600 mr-1 sm:mr-2">Filter:</span>
+          <Button variant={riskFilter === 'high' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('high')} className="text-xs sm:text-sm px-2 sm:px-3">Critical</Button>
+          <Button variant={riskFilter === 'medium' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('medium')} className="text-xs sm:text-sm px-2 sm:px-3">Warning</Button>
+          <Button variant={riskFilter === 'low' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('low')} className="text-xs sm:text-sm px-2 sm:px-3">Info</Button>
+          <Button variant={riskFilter === 'all' ? 'default' : 'outline'} size="sm" onClick={() => setRiskFilter('all')} className="text-xs sm:text-sm px-2 sm:px-3">All</Button>
         </div>
 
-
-
-        {/* ML Predictions Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* ML Predictions Stats Cards - Mobile Responsive */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
           <Card className="border-red-200 bg-gradient-to-r from-red-50 to-red-100 shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-red-700">Critical Alerts</CardTitle>
-              <AlertOctagon className="h-5 w-5 text-red-600" />
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium text-red-700">Critical Alerts</CardTitle>
+              <AlertOctagon className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-red-700">
+            <CardContent className="p-3 sm:p-6 pt-0">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-700">
                 {predictions.filter(p => (p?.risk_assessment?.risk_level || '').toLowerCase() === 'high').length}
               </div>
               <p className="text-xs text-red-600 font-medium">
@@ -287,12 +283,12 @@ export default function Alerts() {
           </Card>
 
           <Card className="border-yellow-200 bg-gradient-to-r from-yellow-50 to-yellow-100 shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-yellow-700">Warning Alerts</CardTitle>
-              <AlertTriangle className="h-5 w-5 text-yellow-600" />
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium text-yellow-700">Warning Alerts</CardTitle>
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600" />
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-yellow-700">
+            <CardContent className="p-3 sm:p-6 pt-0">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-700">
                 {predictions.filter(p => (p?.risk_assessment?.risk_level || '').toLowerCase() === 'medium').length}
               </div>
               <p className="text-xs text-yellow-600 font-medium">
@@ -302,12 +298,12 @@ export default function Alerts() {
           </Card>
 
           <Card className="border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100 shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-blue-700">Info Alerts</CardTitle>
-              <TrendingUp className="h-5 w-5 text-blue-600" />
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium text-blue-700">Info Alerts</CardTitle>
+              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-blue-700">
+            <CardContent className="p-3 sm:p-6 pt-0">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-700">
                 {predictions.filter(p => (p?.risk_assessment?.risk_level || '').toLowerCase() === 'low').length}
               </div>
               <p className="text-xs text-blue-600 font-medium">
@@ -317,12 +313,12 @@ export default function Alerts() {
           </Card>
 
           <Card className="border-purple-200 bg-gradient-to-r from-purple-50 to-purple-100 shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-purple-700">Total Alerts</CardTitle>
-              <Activity className="h-5 w-5 text-purple-600" />
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium text-purple-700">Total Alerts</CardTitle>
+              <Activity className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-purple-700">{predictions.length}</div>
+            <CardContent className="p-3 sm:p-6 pt-0">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-purple-700">{predictions.length}</div>
               <p className="text-xs text-purple-600 font-medium">
                 Last predicted alerts
               </p>
@@ -330,15 +326,15 @@ export default function Alerts() {
           </Card>
         </div>
 
-        {/* Alerts Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        {/* Alerts Tabs - Mobile Responsive */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4 sm:space-y-6">
           <TabsList className="grid w-full grid-cols-1 bg-white/80 backdrop-blur-sm shadow-lg">
-            <TabsTrigger value="predictions" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
+            <TabsTrigger value="predictions" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-sm sm:text-base">
                Prediction Alerts ({predictions.length})
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="predictions" className="space-y-4">
+          <TabsContent value="predictions" className="space-y-3 sm:space-y-4">
             {predictions.length === 0 ? (
               <Card className="border-purple-200 bg-purple-50/50">
                 <CardContent className="flex items-center justify-center h-32">
@@ -469,36 +465,38 @@ export default function Alerts() {
 
                 return (
                   <Card key={prediction._id} className={`border-${severityColor}-200 bg-gradient-to-r from-${severityColor}-50 to-${severityColor === 'red' ? 'red' : severityColor === 'yellow' ? 'yellow' : severityColor === 'blue' ? 'blue' : 'green'}-100 shadow-lg hover:shadow-xl transition-shadow`}>
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-4 flex-1">
-                          <div className={`p-3 rounded-full bg-${severityColor}-100`}>
+                    <CardContent className="p-3 sm:p-4 md:p-6">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0">
+                        <div className="flex items-start gap-3 sm:gap-4 flex-1">
+                          <div className={`p-2 sm:p-3 rounded-full bg-${severityColor}-100 flex-shrink-0`}>
                             {severityIcon}
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-3">
-                              <h4 className={`font-bold text-xl text-${severityColor}-900`}>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
+                              <h4 className={`font-bold text-lg sm:text-xl text-${severityColor}-900 break-words`}>
                                 {(prediction.ups_id || prediction.ups_name || 'Unknown')} - 🚨 AI Failure Prediction
                               </h4>
-                              {severityBadge}
-                              <Badge variant="outline" className={`border-${severityColor}-500 text-${severityColor}-600`}>
-                                {Math.round(prediction.confidence * 100)}% Confidence
-                              </Badge>
+                              <div className="flex flex-wrap gap-2">
+                                {severityBadge}
+                                <Badge variant="outline" className={`border-${severityColor}-500 text-${severityColor}-600 text-xs`}>
+                                  {Math.round(prediction.confidence * 100)}% Confidence
+                                </Badge>
+                              </div>
                             </div>
                             
                             {/* Removed verbose prediction sentence and threshold display per request */}
                             
-                            {/* Detailed Failure Reasons */}
+                            {/* Detailed Failure Reasons - Mobile Responsive */}
                             {failureReasons.length > 0 && (
-                              <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-red-50 rounded-lg border border-purple-200">
-                                <div className="space-y-3">
+                              <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-gradient-to-r from-purple-50 to-red-50 rounded-lg border border-purple-200">
+                                <div className="space-y-2 sm:space-y-3">
                                   <div className="flex items-start gap-2">
-                                    <AlertTriangle className="h-4 w-4 text-purple-600 mt-0.5 flex-shrink-0" />
-                                    <div>
-                                      <span className="text-sm font-semibold text-purple-700">Failure Reasons:</span>
-                                      <div className="mt-2 space-y-2">
+                                    <AlertTriangle className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600 mt-0.5 flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                      <span className="text-xs sm:text-sm font-semibold text-purple-700">Failure Reasons:</span>
+                                      <div className="mt-1 sm:mt-2 space-y-1 sm:space-y-2">
                                         {failureReasons.map((reason, index) => (
-                                          <p key={index} className={`text-sm ${isHighRisk ? 'text-red-600' : 'text-orange-600'}`}>
+                                          <p key={index} className={`text-xs sm:text-sm ${isHighRisk ? 'text-red-600' : 'text-orange-600'} break-words`}>
                                             • {reason}
                                           </p>
                                         ))}
@@ -506,38 +504,38 @@ export default function Alerts() {
                                     </div>
                                   </div>
                                   
-                                  <div className="grid grid-cols-2 gap-4 mt-4">
-                                    <div className="space-y-2">
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-3 sm:mt-4">
+                                    <div className="space-y-1 sm:space-y-2">
                                       <div className="flex items-center gap-2">
-                                        <Shield className="h-4 w-4 text-blue-600" />
-                                        <span className="text-sm font-semibold text-blue-700">Risk Category:</span>
+                                        <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 flex-shrink-0" />
+                                        <span className="text-xs sm:text-sm font-semibold text-blue-700">Risk Category:</span>
                                         <Badge variant="outline" className="text-xs border-blue-500 text-blue-600">
                                           {prediction.risk_assessment?.risk_level === 'high' ? 'multiple_factors' : 
                                            prediction.risk_assessment?.risk_level === 'medium' ? 'elevated_risk' : 'low_risk'}
                                         </Badge>
                                       </div>
                                       <div className="flex items-center gap-2">
-                                        <TrendingUp className="h-4 w-4 text-orange-600" />
-                                        <span className="text-sm font-semibold text-orange-700">Primary Risk:</span>
-                                        <span className="text-sm text-orange-600">{Math.round(failureProb * 100)}%</span>
+                                        <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-orange-600 flex-shrink-0" />
+                                        <span className="text-xs sm:text-sm font-semibold text-orange-700">Primary Risk:</span>
+                                        <span className="text-xs sm:text-sm text-orange-600">{Math.round(failureProb * 100)}%</span>
                                       </div>
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-1 sm:space-y-2">
                                       <div className="flex items-center gap-2">
-                                        <Clock className="h-4 w-4 text-red-600" />
-                                        <span className="text-sm font-semibold text-red-700">Timeframe:</span>
-                                        <span className="text-sm text-red-600">{prediction.risk_assessment?.timeframe || '6 hours'}</span>
+                                        <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-red-600 flex-shrink-0" />
+                                        <span className="text-xs sm:text-sm font-semibold text-red-700">Timeframe:</span>
+                                        <span className="text-xs sm:text-sm text-red-600">{prediction.risk_assessment?.timeframe || '6 hours'}</span>
                                       </div>
                                       <div className="flex items-center gap-2">
-                                        <Zap className="h-4 w-4 text-green-600" />
-                                        <span className="text-sm font-semibold text-green-700">Recommended Action:</span>
+                                        <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0" />
+                                        <span className="text-xs sm:text-sm font-semibold text-green-700">Recommended Action:</span>
                                       </div>
                                     </div>
                                   </div>
                                   
                                   {isHighRisk && (
-                                    <div className="mt-3 p-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg border border-red-200">
-                                      <p className="text-sm text-red-700 font-medium">
+                                    <div className="mt-2 sm:mt-3 p-2 sm:p-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg border border-red-200">
+                                      <p className="text-xs sm:text-sm text-red-700 font-medium">
                                         URGENT: Comprehensive system review required. Multiple components need attention. IMMEDIATE ACTION REQUIRED!
                                       </p>
                                     </div>
@@ -547,9 +545,10 @@ export default function Alerts() {
                             )}
                           </div>
                         </div>
-                        <div className={`flex items-center gap-2 text-sm text-${severityColor}-500 font-medium`}>
-                          <Clock className="h-4 w-4" />
-                          {new Date(prediction.timestamp).toLocaleString()}
+                        <div className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-${severityColor}-500 font-medium flex-shrink-0`}>
+                          <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <span className="hidden sm:inline">{new Date(prediction.timestamp).toLocaleString()}</span>
+                          <span className="sm:hidden">{new Date(prediction.timestamp).toLocaleDateString()}</span>
                         </div>
                       </div>
                     </CardContent>
