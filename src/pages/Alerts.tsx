@@ -27,6 +27,7 @@ export default function Alerts() {
   const [predictions, setPredictions] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('predictions');
   const [lastUpdateTime, setLastUpdateTime] = useState<Date>(new Date());
+  const [lastPredictionTime, setLastPredictionTime] = useState<Date | null>(null);
   const [lastUPSUpdateTime, setLastUPSUpdateTime] = useState<Date>(new Date());
   const [riskFilter, setRiskFilter] = useState<'high' | 'medium' | 'low' | 'all'>('high');
   const [alertCounts, setAlertCounts] = useState<{ high: number; medium: number; low: number }>({ high: 0, medium: 0, low: 0 });
@@ -45,6 +46,12 @@ export default function Alerts() {
           const predictionsData = data.predictions || [];
           setPredictions(predictionsData);
           setLastUpdateTime(new Date());
+          
+          // Set the actual timestamp of the latest prediction
+          if (predictionsData.length > 0 && predictionsData[0].timestamp) {
+            setLastPredictionTime(new Date(predictionsData[0].timestamp));
+          }
+          
           console.log(`Fetched ${predictionsData.length} predictions at ${new Date().toLocaleTimeString()}`);
         }
       } catch (error) {
@@ -164,34 +171,23 @@ export default function Alerts() {
                   <div className="flex items-center gap-2 text-blue-600 mt-1">
                     <Activity className="h-2 w-2 sm:h-3 sm:w-3 flex-shrink-0" />
                     <span className="text-xs">
-                      Last: {lastUpdateTime.toLocaleTimeString('en-US', { 
-                        hour: '2-digit', 
-                        minute: '2-digit',
-                        hour12: true 
-                      })}
+                      Last: {lastPredictionTime 
+                        ? lastPredictionTime.toLocaleTimeString('en-US', { 
+                            hour: '2-digit', 
+                            minute: '2-digit',
+                            hour12: true 
+                          })
+                        : lastUpdateTime.toLocaleTimeString('en-US', { 
+                            hour: '2-digit', 
+                            minute: '2-digit',
+                            hour12: true 
+                          })}
                     </span>
                   </div>
                 </div>
                 
                 {/* UPS Data Cycle */}
-                <div className="p-2 sm:p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="flex items-center gap-2 text-green-700">
-                    <RefreshCw className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm font-medium">
-                      UPS Data: Every 5 min • Next: {getNextUPSUpdateTime()}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-green-600 mt-1">
-                    <Activity className="h-2 w-2 sm:h-3 sm:w-3 flex-shrink-0" />
-                    <span className="text-xs">
-                      Last: {lastUPSUpdateTime.toLocaleTimeString('en-US', { 
-                        hour: '2-digit', 
-                        minute: '2-digit',
-                        hour12: true 
-                      })}
-                    </span>
-                  </div>
-                </div>
+               
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4">
@@ -220,6 +216,12 @@ export default function Alerts() {
                           const predictionsData = data.predictions || [];
                           setPredictions(predictionsData);
                           setLastUpdateTime(new Date());
+                          
+                          // Set the actual timestamp of the latest prediction
+                          if (predictionsData.length > 0 && predictionsData[0].timestamp) {
+                            setLastPredictionTime(new Date(predictionsData[0].timestamp));
+                          }
+                          
                           console.log(`Manually refreshed ${predictionsData.length} predictions`);
                         }
                       } catch (error) {
@@ -398,7 +400,7 @@ export default function Alerts() {
                 // Get proper failure reasons based on actual data
                 const getFailureReasons = () => {
                   // Prefer explicit reasons from API if provided
-                  const explicit = (prediction.failure_reasons || prediction.risk_assessment?.reasons || prediction.reasons) as string[] | undefined;
+                  const explicit = (prediction.failure_reasons || prediction.risk_assessment?.failure_reasons || prediction.risk_assessment?.reasons || prediction.reasons) as string[] | undefined;
                   if (Array.isArray(explicit) && explicit.length > 0) {
                     return explicit;
                   }

@@ -163,9 +163,13 @@ export function UPSDetailModal({ ups, isOpen, onClose }: UPSDetailModalProps) {
                   <div className="flex items-center gap-3">
                     <Clock className="h-5 w-5 text-primary" />
                     <div>
-                      <h4 className="font-medium">Last Checked</h4>
+                      <h4 className="font-medium">Last Predicted</h4>
                       <p className="text-muted-foreground">
-                        {displayData?.lastChecked ? formatTimestamp(displayData.lastChecked) : 'Unknown'}
+                        {displayData?.lastPrediction 
+                          ? formatTimestamp(displayData.lastPrediction)
+                          : predictionsData?.predictions?.[0]?.timestamp 
+                            ? formatTimestamp(predictionsData.predictions[0].timestamp)
+                            : 'No recent predictions'}
                       </p>
                     </div>
                   </div>
@@ -643,9 +647,9 @@ export function UPSDetailModal({ ups, isOpen, onClose }: UPSDetailModalProps) {
                                 {prediction.risk_assessment?.risk_level || 'unknown'}
                               </span>
                             </div>
-                            {prediction.failure_reasons && prediction.failure_reasons.length > 0 && (
+                            {(prediction.failure_reasons || prediction.risk_assessment?.failure_reasons) && (prediction.failure_reasons || prediction.risk_assessment?.failure_reasons).length > 0 && (
                               <div className="text-xs text-gray-700 mb-2">
-                                <strong>Key Issues:</strong> {prediction.failure_reasons[0]}
+                                <strong>Key Issues:</strong> {(prediction.failure_reasons || prediction.risk_assessment?.failure_reasons)[0]}
                               </div>
                             )}
                             <p className="text-xs text-gray-600">

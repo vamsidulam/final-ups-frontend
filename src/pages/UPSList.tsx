@@ -378,10 +378,14 @@ export default function UPSList() {
                       <span className="font-medium">{ups.temperature}°C</span>
                     </div>
 
-                    {/* Last Checked */}
+                    {/* Last Prediction */}
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Clock className="h-3 w-3" />
-                      {formatTimestamp(ups.lastChecked)}
+                      {ups.lastPrediction 
+                        ? formatTimestamp(ups.lastPrediction)
+                        : ups.lastChecked 
+                          ? formatTimestamp(ups.lastChecked)
+                          : 'No recent predictions'}
                     </div>
 
                     <Button 

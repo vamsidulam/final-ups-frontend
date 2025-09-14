@@ -5,6 +5,7 @@ export interface UPS {
   location: string;
   status: 'healthy' | 'warning' | 'failed' | 'risky';
   lastChecked: string;
+  lastPrediction?: string;
   powerInput: number;
   powerOutput: number;
   batteryLevel: number;

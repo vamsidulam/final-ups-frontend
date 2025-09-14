@@ -148,7 +148,7 @@ export const usePredictions = (params?: {
   return useQuery({
     queryKey: queryKeys.predictions.all(params),
     queryFn: () => predictionsAPI.getAll(params),
-    refetchInterval: 60000, // Refresh every 1 minute
+    refetchInterval: 900000, // Refresh every 15 minutes to match backend prediction cycle
   });
 };
 
@@ -157,7 +157,7 @@ export const usePredictionsByUPS = (upsId: string, limit: number = 5) => {
     queryKey: queryKeys.predictions.byUPS(upsId),
     queryFn: () => predictionsAPI.getAll({ ups_id: upsId, limit }),
     enabled: !!upsId,
-    refetchInterval: 60000, // Refresh every 1 minute
+    refetchInterval: 900000, // Refresh every 15 minutes to match backend prediction cycle
   });
 };
 
